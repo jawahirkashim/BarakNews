@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BarakNews</string>
+    <string name="news_headline">News HeadLine</string>
 </resources>
