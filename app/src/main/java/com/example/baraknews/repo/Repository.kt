@@ -1,15 +1,19 @@
 package com.example.baraknews.repo
 
-import android.util.Log
 import com.example.baraknews.api.API
-import com.example.baraknews.api.Articles
+import com.example.baraknews.db.NewsHeadline
 import javax.inject.Inject
 
-class Repository @Inject constructor(val api: API) {
-    suspend fun getNewsHighlight():Articles{
+class Repository @Inject constructor(private val api: API) {
+    suspend fun getNewsHighlight(): List<NewsHeadline> {
         val response = api.getNewsHeadlines()
-        val articles = response.articles
-        Log.d("Reposiory", "getNewsHighlight: ${articles.size}")
-        return response
+        val newsHeadLines = response.articles.map {
+            NewsHeadline(
+                title = it.title,
+                url = it.url,
+                thumbNail = it.urlToImage
+            )
+        }
+        return newsHeadLines
     }
 }

@@ -19,9 +19,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         MainScope().launch(Dispatchers.IO) {
-            val articles = viewModel.getNewsHighlight()
-            articles.articles.forEach {
-                Log.d("MainActivity", "onCreate: ${it.title}")
+            viewModel.news.collect {
+                it.forEach { news ->
+                    Log.d("MainActivity", "onCreate: ${news.title}")
+                }
             }
         }
     }
